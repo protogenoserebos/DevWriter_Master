@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <h2>{{ page_title }}</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 20px;">
+        
+        {% for recipe in recipes %}
+        <div style="border: 1px solid #eee; border-radius: 12px; overflow: hidden; transition: 0.3s; background: #fff;">
+            
+            {% if recipe.recipe_image_1 %}
+                <img src="{{ recipe.recipe_image_1.url }}" alt="{{ recipe.title }}" style="width: 100%; height: 200px; object-fit: cover;">
+            {% else %}
+                <div style="width: 100%; height: 200px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #ccc;">No Image</div>
+            {% endif %}
+
+            <div class="recipe-card-container" style="padding: 20px;">
+                <span class="meal-type-tag" style="background: #FF7F50; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; text-transform: uppercase;">
+                    {{ recipe.get_mealtype_display }}
+                </span>
+                
+                <h3 class="recipe-card-title" style="margin: 10px 0;">
+                    <a href="{{ recipe.get_absolute_url }}" style="text-decoration: none; color: #333;">{{ recipe.title }}</a>
+                </h3>
+                
+                <p style="color: #666; font-size: 0.9em; height: 3.6em; overflow: hidden;">
+                    {{ recipe.recipe_short_card_description|truncatechars:100 }}
+                </p>
+                
+                <a class="btn-primary" href="{{ recipe.get_absolute_url }}" style="display: inline-block; margin-top: 10px; background: #333; color: #fff; padding: 8px 16px; border-radius: 5px; text-decoration: none;">View Recipe</a>
+            </div>
+        </div>
+        {% empty %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 50px;">
+                <p style="color: #999; font-size: 1.2em;">No recipes found in this category yet. Check back soon!</p>
+            </div>
+        {% endfor %}
+        
+    </div>
+
+{% endblock %}

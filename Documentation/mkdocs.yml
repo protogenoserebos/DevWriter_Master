@@ -1,0 +1,22 @@
+site_name: Developing Writer Umbrella Docs
+nav:
+- Outline: index.md
+- Getting Started:
+  - Django: 1.1_GettingStarted_Django.md
+  - Prerequisites: 1.2_GettingStarted_Prereqs.md
+- Django How-Tos:
+    - Overview: 2.1_HowTo_Overview.md
+    - Build Templates: 2.2_HowTo_BuildTemplates.md
+    - Define URL Patterns: 2.3_HowTo_DefineURLPatterns.md
+    - Define Views: 2.4_HowTo_DefineViews.md
+    - Model-View-Template Relationship: 2.5_HowTo_ModelViewTemp.md
+    - Defining Models: 2.6_HowTo_DefineModels.md
+- Site Architecture:
+    - Architecture Overview: 3.1_SiteArchitecture_Models.md
+
+theme: material
+
+extra_css:
+  - stylesheets/extra.css
+
+dev_addr: 127.0.0.1:8001

@@ -1,0 +1,177 @@
+/* ---- SENSIBLE SUPPERS STYLESHEET ---- updated: 1/28/2026 ---- */
+      
+      
+    /* -- Global Styles --  */
+
+    :root {
+  --background-color:#f9f9f9;
+  --font-color: #333;
+  --primary-color: #0292b7;
+  --second-color: #E67E66;
+  --accent-color1: #c5a059; 
+  --accent-color2: 
+}
+      
+      /* Import Inter font */
+
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap'); 
+          html {
+          /* High-performance gradient background */
+          background: linear-gradient(
+        to right, 
+        #15b5b030 0%, 
+        #f9f9f9 20%, 
+        #f9f9f9 80%, 
+        #15b5b030 100%);
+    
+          /* Ensures the background stretches the full height of the browser */
+          min-height: 100%;}
+
+      body { 
+              background: transparent;
+              margin: 0;
+              padding: 0;
+              font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+              -webkit-font-smoothing: antialiased;
+              -moz-osx-font-smoothing: grayscale;
+              color: #333;
+              line-height: 1.2;
+              font-size: 18px;
+          }
+
+        .container {max-width: 680px; margin: 0 auto; padding: 0px 20px;  }
+
+        h1, h2, h3 {font-weight: 700;letter-spacing: -0.02em;color: var(--primary-color);}
+        a {color:inherit;text-decoration:none}
+        p {color: #333}
+
+      /* -- Base.html Navigation Styles -- */
+
+        .navbar1{
+            display:grid;place-items:center;
+            padding:10px 16px;}
+        .hero-link{display:inline-block}
+        .hero-image{max-width:min(77vw, 400px);}
+        .tagline{color:var(--primary-color); font-size: 10pt; margin-top: -3px; }
+        .nav-row{display:flex; align-items:center;justify-content:center; gap:20px; height:auto; }
+        .nav-link {font-weight: bold; color:#2e2b2b; font-size:11pt;}
+        .nav-link:hover{color:var(--primary-color)}
+        .menubtn{cursor:pointer}
+
+
+      /* Footer */
+
+        .site-footer-top{margin-top:40px;color:#1f2937; background: linear-gradient(to right,#15b5b030 0%,#15b5b030 100%);box-shadow: 0px 10px 14px 3px rgb(0 0 0 / 2%);}      
+        .site-footer-bottom{display:flex; flex-direction:column;align-items:center;background:transparent; line-height: 0; padding-top: 10px; font-size:10pt;} 
+        .footer-inner{display:flex;flex-direction:column;align-items: center; gap:8px;padding:18px 0}
+        .footer-note{font-size:.9rem;color:#333; margin:20px;}
+        .footer-links a{color:#111827;text-decoration:underline}
+        .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+      /* --- Article Styles ---*/
+
+        article{max-width: 800px; margin: 0 auto; padding: 20px; font-family: sans-serif;}
+
+      /* --- Button Styles ---*/
+
+        .btn-primary {
+          background-color: transparent;
+          color: var(--second-color);
+          border: none;
+          border-radius: 4px;
+          font-weight:bold;
+          transition: background 0.3s ease;}
+        
+        .btn-primary:hover {color: var(--primary-color);}
+
+        
+
+      /*---Recipe Card Container ---*/
+
+        .recipe-card-container{padding:10px; line-height:15p}
+        .recipe-card-title{margin:0 ,0;}
+
+      /*---Meal Type Tags---*/
+
+        .meal-type-tag{color: var(--second-color); font-weight: bold; font-size: 0.8em; text-transform: uppercase;}
+
+      /*-- Comments Section --*/
+
+        .comments-section{border-radius:5px; box-shadow: 0px 10px 14px 3px rgb(0 0 0 / 2%); }
+
+        .circle-border-parent {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--second-color);
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        color: var(--second-color);
+        font-weight: bold;
+        margin: 0 10px;
+        font-size: 21pt;
+        }
+
+        .circle-border-child {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--accent-color1);
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        color: var(--accent-color1);
+        font-weight: bold;
+        margin: 0 10px;
+        font-size:21pt;
+        }
+
+        .comment-body {display:flex; flex-direction: row;}
+        .all-comments-container{display:flex; flex-direction: column; margin-left:20px;  padding-left: 5px; margin-bottom: 20px;}
+        .comment-container{flex-direction:row; border-left: 2px solid var(--second-color); }
+        .child-comment-container{display:flex; flex-direction: row; margin-left:60px; margin-top:15px; border-left: 2px solid var(--accent-color1); padding-left: 5px;}
+        .comment-initial-container {display:flex; align-items: center;}
+        .comment-body-container {margin-left: 10px;}
+        .main-comment-form {display: none; margin-top: 20px; background: #f9f9f9; padding: 20px; border-radius: 8px;}
+        .comment-reply-form {margin-bottom:5px;}
+
+
+        .rating-fill {
+        background-color: #ffb400;
+        height: 100%;
+        border-radius: 6px;
+        /* This uses the variable we set in the HTML */
+        width: var(--bar-width);
+        transition: width 0.5s ease-in-out;}
+
+        .meal-type-tag {
+    transition: opacity 0.2s ease-in-out, transform 0.1s ease-in-out;
+    display: inline-block; /* Required for transform to work well */
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Color Mapping based on the Data Attribute */
+.meal-type-tag[data-mealtype="Breakfast"] { background-color: #D4A373; }
+.meal-type-tag[data-mealtype="Entree"]    { background-color: #BC6C25; }
+.meal-type-tag[data-mealtype="Dessert"]   { background-color: #2A9D8F; }
+.meal-type-tag[data-mealtype="Sides"]     { background-color: #264653; }
+
+/* Optional: Subtle hover effect */
+.meal-tag-link:hover .meal-type-tag {
+    filter: brightness(1.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+.meal-type-tag:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.recipe-title {color: red;}

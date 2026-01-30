@@ -1,0 +1,41 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sensible Suppers</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+  <body>
+    <!-- Top hero bar (logo back to home) -->
+    <div class="navbar1">
+      <a class="hero-link" href="{% url 'home' %}" aria-label="Go to homepage">
+        <img src="{% static 'SensibleSuppers/images/SensibleSuppers.png' %}" alt="Sensible Suppers" class="hero-image" />
+      </a>
+     
+    </div>
+
+    <!-- Second nav bar -->
+    <nav class="navbar2">
+  <div class="nav-row"><a class="nav-link" href="{% url 'home' %}">Home</a><a class="nav-link" href="{% url 'entrees' %}">Entrees</a><a class="nav-link" href="{% url 'breakfast' %}">Breakfast</a><a class="nav-link" href="{% url 'desserts' %}">Desserts</a><a class="nav-link" href="{% url 'snacks-dips' %}">Snacks & Dips</a></div>
+ 
+</nav>
+<div class="container">
+{% block content %}
+
+{% endblock %}
+</div>    
+    <!-- Footer -->
+    <footer class="site-footer-top">
+      <div class="footer-inner">
+        <p class="footer-note">
+          <strong>Affiliate Notice:</strong> Some links on Sensible Suppers may be Amazon affiliate links. As an Amazon Associate, we may earn from qualifying purchases at no extra cost to you.</p></footer>
+          <div class="site-footer-bottom">
+        <p>©2026 Sensible Suppers</p><p class="footer-links">Developed & Hosted by: <a href="https://www.developing-writer.com">The Developing Writer</a></p><p><a href="mailto: developingwriter@gmail.com">Contact Us</a></p><p><a href="https://www.djangoproject.com/">Powered by Django</a></p></div> 
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,213 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+</nav>
+<h2>{{ recipe.rating }}</h2>
+<article>
+    <header style="text-align: center; margin-bottom: 40px;">
+       
+        
+        
+        <h1 class="recipe-title" style="font-size: 2.5em; margin: 10px 0;">{{ recipe.title }}</h1>
+         
+         <div style="color: #666; font-size: 0.9em;">
+            By <strong>{{ recipe.author }}</strong> | {{ recipe.date_added }}
+        </div>
+        <div class="rating-summary" style="margin: 10px 0; color: #ffb400; font-size: 1.2em;">
+    {% if average_rating > 0 %}
+        <span style="color: #444; font-weight: bold; font-size: 14pt;">{{ average_rating }}</span>
+        
+        {% for i in "12345" %}
+            {% if average_rating >= forloop.counter %}
+                ★ {% elif average_rating > forloop.counter0 %}
+                ☆ {% else %}
+                ☆ {% endif %}
+        {% endfor %}
+        <span style="color: #999; font-size: 0.8em;">({{ recipe.comments.count }} Comments)</span>
+    {% else %}
+        <span style="color: #999; font-size: 0.8em;">No ratings yet</span>
+    {% endif %}
+</div>
+
+        
+       
+    </header>
+
+    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+    <div class="recipe-story">
+        {% for text, image in recipe.get_content_blocks %}
+            <div style="margin-bottom: 40px;">
+                
+                {% if text %}
+                    <div style="font-size: 1.1em; line-height: 1.6; margin-bottom: 20px; color: #333;">
+                        {{ text|linebreaks }}
+                    </div>
+                {% endif %}
+
+                {% if image %}
+                    <figure style="margin: 0;">
+                        <img src="{{ image.url }}" alt="Recipe step" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    </figure>
+                {% endif %}
+                
+            </div>
+        {% endfor %}
+    </div>
+
+
+ 
+    <div style="display: flex; gap: 40px; margin-bottom: 40px; flex-wrap: wrap;">
+        
+       <div style="flex: 1; min-width: 300px; background: #fdfdfd; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+    <h3 style="margin-top: 0; color: #444;">Ingredients</h3>
+    <ul style="line-height: 1.6; list-style-type: disc; padding-left: 20px; color: #333;">
+        {% for line in recipe.recipe_ingredients.splitlines %}
+            {% if line.strip %}
+                <li style="margin-bottom: 8px;">{{ line }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+        <div style="flex: 1; min-width: 300px;">
+            <h3 style="margin-top: 0; color: #444;">Instructions</h3>
+            <div style="line-height: 1.6;">
+                {{ recipe.recipe_instructions|linebreaks }}
+            </div>
+        </div>
+    </div>
+
+    
+    {% if recipe.recipe_video %}
+        <div style="margin-top: 50px;">
+            <h3>Watch how to make it</h3>
+            <a href="{{ recipe.recipe_video }}" target="_blank">{{ recipe.recipe_video }}</a>
+        </div>
+    {% endif %}
+
+
+    <div id="main-comment-form">
+        <h3>Leave a Comment</h3>
+        <form method="post" action=".">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; margin-bottom: 10px; padding: 8px;">
+            <textarea name="body" placeholder="Your Comment" required style="width: 100%; margin-bottom: 10px; padding: 8px;"></textarea>
+            
+            <label>Rating:</label>
+            <select name="rating" style="margin-bottom: 10px; padding: 5px;">
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+            </select>
+            <br>
+            <button class="btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+
+    <h2>Reviews</h2>
+
+    <div class="rating-breakdown" style="max-width: 300px; margin: 20px 0;">
+    <h4 style="margin-bottom: 10px;">Rating Breakdown</h4>
+    {% for item in rating_breakdown %}
+        <div style="display: flex; align-items: center; margin-bottom: 5px;">
+            <div style="width: 60px; font-size: 0.9em; color: #555;">{{ item.stars }} stars</div>
+            
+            <div style="flex-grow: 1; background-color: #eeeeee; height: 12px; border-radius: 6px; margin: 0 10px; position: relative;">
+    <div class="rating-fill" style="--bar-width: {{ item.percentage|default:0 }}%;"></div>
+</div>
+            
+            <div style="width: 30px; font-size: 0.9em; color: #999; text-align: right;">{{ item.count }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+
+    {% if not recipe.comments.all %}
+        <p>No Comments Yet...</p>
+    {% else %}
+        {% for comment in recipe.comments.all %}
+            {% if not comment.parent %}
+                
+            
+            
+            
+            <div class="all-comments-container">
+                    
+                
+                
+                
+                
+                    <div class="comment-container">
+                        
+                            <div class="comment-body-container">
+                                    <!--User Name and Date Added Info-->
+                                    <p><span class="circle-border-parent">{{ comment.name.0 }}</span><strong>{{ comment.name }}</strong> - {{ comment.date_added }}</p>  
+                                    <!--Star Rating and Average Number of Ratings-->
+                                        <div style="color: #ffb400; margin: 5px 0;">
+                                            {% if comment.rating %}
+                                                {% for i in "12345" %}
+                                                    {% if forloop.counter <= comment.rating %}★{% else %}☆{% endif %}
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    <!--Actual Body of Comment-->
+                                    <p class="comment-body">{{ comment.body }}</p>
+                                    <button onclick="toggleForm('reply-{{ comment.id }}')" style="background: none; border: none; color: #FF7F50; cursor: pointer; padding: 0; font-size: 0.9em;">Reply</button>
+                                            
+                                    <!--Reply Comment Button and Hidden Form Fields-->
+                                    <div id="reply-{{ comment.id }}" style="display: none; margin-top: 15px;">
+                                            <form class="comment-reply-form" method="post" action=".">
+                                                {% csrf_token %}
+                                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; margin-bottom: 5px; padding: 5px;">
+                                            <textarea name="body" placeholder="Write a reply..." required style="width: 100%; margin-bottom: 5px; padding: 5px;"></textarea>
+                                            <button type="submit" style="background: #c5a059; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 0.8em;">Post Reply</button>
+                                        </form>
+                                    </div>
+                        </div> 
+                       
+                           
+                </div>
+                                    <div id="reply-{{ comment.id }}" style="display: none; margin-top: 15px;">
+                                            <form class="comment-reply-form" method="post" action=".">
+                                                {% csrf_token %}
+                                            <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                            <input type="text" name="name" placeholder="Your Name" required style="width: 100%; margin-bottom: 5px; padding: 5px;">
+                                            <textarea name="body" placeholder="Write a reply..." required style="width: 100%; margin-bottom: 5px; padding: 5px;"></textarea>
+                                            <button type="submit" style="background: #c5a059; color: white; padding: 5px 10px; border: none; border-radius: 3px; font-size: 0.8em;">Post Reply</button>
+                                        </form>
+                                    </div>
+
+                    {% for reply in comment.replies.all %}
+                        <div class="child-comment-container">
+                            <div class="comment-initial-container">
+                                <span class="circle-border-child">{{ reply.name.0 }}</span>
+                            </div>
+                            <div class="comment-body-container">
+                                <strong>{{ reply.name }}</strong> - {{ reply.date_added }}
+                                <p class="comment-body">{{ reply.body }}</p>
+                                </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+
+<script>
+function toggleForm(id) {
+    var form = document.getElementById(id);
+    if (form.style.display === "none") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
+    }
+}
+</script>
+</article>
+{% endblock %}
