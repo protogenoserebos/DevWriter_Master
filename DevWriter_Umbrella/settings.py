@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z$$8dw@bz_piq*hf4x8q*yz1cl8xq@1co#=8pxidrgt7ef9a8w'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -57,7 +59,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DevWriter_Umbrella.urls'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -118,12 +120,20 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+# This is the URL used to access static files in the browser
 STATIC_URL = 'static/'
 
+# This is where collectstatic will put your files for production
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+
+# (Optional) If you have a local static folder in your project
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 # The absolute filesystem path to the directory that will hold user-uploaded files
-import os
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'SensibleSuppers', 'media') 
