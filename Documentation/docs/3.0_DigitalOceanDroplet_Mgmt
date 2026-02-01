@@ -1,0 +1,54 @@
+## Pushing Updates to Droplet after Git Push
+**Initial Only**
+
+1. nano /root/update_site.sh
+2. Enter into console:
+
+        #!/bin/bash
+        echo "--- Starting Update ---"
+        cd /var/www/site1
+
+        echo "1. Pulling latest code from GitHub..."
+        git pull origin main # or 'master' depending on your branch name
+
+        echo "2. Installing dependencies..."
+        source /var/www/site1/DevelopWriter/bin/activate
+        pip install -r requirements.txt
+
+        echo "3. Migrating Database..."
+        python manage.py migrate
+
+        echo "4. Collecting Static Files..."
+        python manage.py collectstatic --noinput
+
+        echo "5. Restarting Gunicorn..."
+        sudo systemctl restart site1
+
+        echo "--- Update Complete! ---"
+
+3. Make it executable, enter into console: 
+
+        chmod +x /root/update_site.sh
+
+After Git Push updates VS Code to GitHub, log into Droplet console and run deploy script:
+
+        ./update_site.sh
+
+Restart , Stop and Start the Nginx web server with:
+
+    sudo systemctl restart nginx
+
+    sudo systemctl stop nginx
+
+    sudo systemctl start nginx
+
+Get Nginx server status
+
+    sudo systemctl status nginx
+
+
+Install or Update all prerequisites using requirements.txt: 
+
+> In Django, generate a requirements.txt file in the project directory with: pip freeze > requirements.txt
+
+        pip install -r /var/www/site1/requirements.txt
