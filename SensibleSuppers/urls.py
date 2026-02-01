@@ -13,6 +13,8 @@ urlpatterns = [
     path('recipe/<slug:slug>/', RecipeDetailView.as_view(), name='recipe_detail'),
 
     path('entrees/', views.entrees, name='entrees'),
+
+    path('dips/', views.dips, name='dips'),
     
     path('breakfast/', views.breakfast, name='breakfast'),
 

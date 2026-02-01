@@ -20,13 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+# Look for a secret key in the environment; if not found, use a 'dummy' string
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-dev-key-123')
+
+# Also, ensure DEBUG is True locally so you can see errors
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [['sensiblesuppers.com', 'www.sensiblesuppers.com', '174.138.66.218', 'localhost']]
+ALLOWED_HOSTS = ['sensiblesuppers.com', 'www.sensiblesuppers.com', '174.138.66.218', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -128,10 +131,10 @@ STATIC_URL = 'static/'
 # This is where collectstatic will put your files for production
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 
-# (Optional) If you have a local static folder in your project
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+
+
+
+
 
 # The absolute filesystem path to the directory that will hold user-uploaded files
 

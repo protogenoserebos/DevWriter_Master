@@ -23,7 +23,7 @@ from django.urls import path, include
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('devwriterportal/', admin.site.urls),
     path('', include('SensibleSuppers.urls')), # Make sure this line exists!
     path("SensibleSuppers/", include(("SensibleSuppers.urls", "SensibleSuppers"), namespace="SensibleSuppers")), 
 ]

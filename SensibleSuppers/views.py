@@ -25,9 +25,10 @@ def category_view(request, meal_type_key):
     # This maps the key to a nice human-readable title
     titles = {
         'Breakfast': 'Breakfast Recipes',
-        'Sides': 'Sides, Dips, and Appetizers',
+        'Sides': 'Sides & Appetizers',
         'Entree': 'Entree Recipes',
         'Dessert': 'Dessert Recipes',
+        'Dips' : 'Dips & Sauces',
     }
     
     context = {
@@ -42,6 +43,13 @@ def entrees(request):
     return render(request, "SensibleSuppers/home.html", {
         'recipes': recipes, 
         'page_title': 'Entree Recipes'
+    })
+
+def dips(request):
+    recipes = RecipeArticle.objects.filter(mealtype='Dips')
+    return render(request, "SensibleSuppers/home.html", {
+        'recipes': recipes, 
+        'page_title': 'Dips & Sauces Recipes'
     })
 
 def breakfast(request):
@@ -63,7 +71,7 @@ def snacksdips(request):
     recipes = RecipeArticle.objects.filter(mealtype='Sides')
     return render(request, "SensibleSuppers/home.html", {
         'recipes': recipes, 
-        'page_title': 'Sides, Dips, and Appetizers'
+        'page_title': 'Sides & Appetizers Recipes'
     })
 
 class RecipeDetailView(DetailView):
