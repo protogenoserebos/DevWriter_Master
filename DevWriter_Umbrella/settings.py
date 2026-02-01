@@ -26,8 +26,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-dev-key-123')
 # Also, ensure DEBUG is True locally so you can see errors
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = ['sensiblesuppers.com', 'www.sensiblesuppers.com', '174.138.66.218', 'localhost', '127.0.0.1']
 
@@ -139,4 +137,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # The absolute filesystem path to the directory that will hold user-uploaded files
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'SensibleSuppers', 'media') 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
